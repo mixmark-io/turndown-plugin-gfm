@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>turndown test runner</title>
+  <link rel="stylesheet" href="../node_modules/turndown-attendant/dist/styles.css">
+</head>
+<body>
+
+<!-- TEST CASES -->
+
+<div class="case" data-name="strike">
+  <div class="input"><strike>Lorem ipsum</strike></div>
+  <pre class="expected">~Lorem ipsum~</pre>
+</div>
+
+<div class="case" data-name="s">
+  <div class="input"><s>Lorem ipsum</s></div>
+  <pre class="expected">~Lorem ipsum~</pre>
+</div>
+
+<div class="case" data-name="del">
+  <div class="input"><del>Lorem ipsum</del></div>
+  <pre class="expected">~Lorem ipsum~</pre>
+</div>
+
+<div class="case" data-name="unchecked inputs">
+  <div class="input"><ul><li><input type=checkbox>Check Me!</li></ul></div>
+  <pre class="expected">*   [ ] Check Me!</pre>
+</div>
+
+<div class="case" data-name="checked inputs">
+  <div class="input"><ul><li><input type=checkbox checked>Checked!</li></ul></div>
+  <pre class="expected">*   [x] Checked!</pre>
+</div>
+
+<div class="case" data-name="basic table">
+  <div class="input">
+    <table>
+      <thead>
+        <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Row 1, Column 1</td>
+          <td>Row 1, Column 2</td>
+        </tr>
+        <tr>
+          <td>Row 2, Column 1</td>
+          <td>Row 2, Column 2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pre class="expected">| Column 1 | Column 2 |
+| --- | --- |
+| Row 1, Column 1 | Row 1, Column 2 |
+| Row 2, Column 1 | Row 2, Column 2 |</pre>
+</div>
+
+<div class="case" data-name="cell alignment">
+  <div class="input">
+    <table>
+      <thead>
+        <tr>
+          <th align="left">Column 1</th>
+          <th align="center">Column 2</th>
+          <th align="right">Column 3</th>
+          <th align="foo">Column 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Row 1, Column 1</td>
+          <td>Row 1, Column 2</td>
+          <td>Row 1, Column 3</td>
+          <td>Row 1, Column 4</td>
+        </tr>
+        <tr>
+          <td>Row 2, Column 1</td>
+          <td>Row 2, Column 2</td>
+          <td>Row 2, Column 3</td>
+          <td>Row 2, Column 4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pre class="expected">| Column 1 | Column 2 | Column 3 | Column 4 |
+| :-- | :-: | --: | --- |
+| Row 1, Column 1 | Row 1, Column 2 | Row 1, Column 3 | Row 1, Column 4 |
+| Row 2, Column 1 | Row 2, Column 2 | Row 2, Column 3 | Row 2, Column 4 |</pre>
+</div>
+
+<div class="case" data-name="empty cells">
+  <div class="input">
+    <table>
+      <thead>
+        <tr>
+          <th align="left">Column 1</th>
+          <th align="center">Column 2</th>
+          <th align="right">Column 3</th>
+          <th align="foo">Column 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td>Row 1, Column 2</td>
+          <td>Row 1, Column 3</td>
+          <td>Row 1, Column 4</td>
+        </tr>
+        <tr>
+          <td>Row 2, Column 1</td>
+          <td></td>
+          <td>Row 2, Column 3</td>
+          <td>Row 2, Column 4</td>
+        </tr>
+        <tr>
+          <td>Row 3, Column 1</td>
+          <td>Row 3, Column 2</td>
+          <td></td>
+          <td>Row 3, Column 4</td>
+        </tr>
+        <tr>
+          <td>Row 4, Column 1</td>
+          <td>Row 4, Column 2</td>
+          <td>Row 4, Column 3</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Row 5, Column 4</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<pre class="expected">| Column 1 | Column 2 | Column 3 | Column 4 |
+| :-- | :-: | --: | --- |
+|  | Row 1, Column 2 | Row 1, Column 3 | Row 1, Column 4 |
+| Row 2, Column 1 |  | Row 2, Column 3 | Row 2, Column 4 |
+| Row 3, Column 1 | Row 3, Column 2 |  | Row 3, Column 4 |
+| Row 4, Column 1 | Row 4, Column 2 | Row 4, Column 3 |  |
+|  |  |  | Row 5, Column 4 |</pre>
+</div>
+
+<div class="case" data-name="empty rows">
+  <div class="input">
+    <table>
+      <tbody>
+        <tr>
+          <td>Row 1</td>
+          <td>Row 1</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Row 3</td>
+          <td>Row 3</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<pre class="expected">| Row 1 | Row 1 |
+| Row 3 | Row 3 |</pre>
+</div>
+
+<!-- /TEST CASES -->
+
+<script src="turndown-plugin-gfm-test.browser.js"></script>
+</body>
+</html>

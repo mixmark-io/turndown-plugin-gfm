@@ -7,7 +7,7 @@
     "browserify": "^14.5.0",
     "rollup": "^0.50.0",
     "standard": "^10.0.3",
-    "turndown": "0.0.8",
+    "turndown": "4.0.0-rc.2",
     "turndown-attendant": "0.0.2"
   },
   "files": [
@@ -28,7 +28,7 @@
   "main": "lib/turndown-plugin-gfm.cjs.js",
   "module": "lib/turndown-plugin-gfm.es.js",
   "scripts": {
-    "build": "npm run build-cjs && npm run build-es && npm run build-iife",
+    "build": "npm run build-cjs && npm run build-es && npm run build-iife && npm run build-test",
     "build-cjs": "rollup -c config/rollup.config.cjs.js && rollup -c config/rollup.config.browser.cjs.js",
     "build-es": "rollup -c config/rollup.config.es.js && rollup -c config/rollup.config.browser.es.js",
     "build-iife": "rollup -c config/rollup.config.iife.js",

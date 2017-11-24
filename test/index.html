@@ -171,6 +171,108 @@
 | Row 3 | Row 3 |</pre>
 </div>
 
+<div class="case" data-name="th in first row">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading</th>
+      </tr>
+      <tr>
+        <td>Content</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |
+| Content |</pre>
+</div>
+
+<div class="case" data-name="th first row in tbody">
+  <div class="input">
+    <table>
+      <tbody>
+        <tr>
+          <th>Heading</th>
+        </tr>
+        <tr>
+          <td>Content</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |
+| Content |</pre>
+</div>
+
+<div class="case" data-name="table with two tbodies">
+  <div class="input">
+    <table>
+      <tbody>
+        <tr>
+          <th>Heading</th>
+        </tr>
+        <tr>
+          <td>Content</td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <th>Heading</th>
+        </tr>
+        <tr>
+          <td>Content</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |
+| Content |
+| Heading |
+| Content |</pre>
+</div>
+
+<div class="case" data-name="th in first row">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading</th>
+        <td>Not a heading</td>
+      </tr>
+      <tr>
+        <td>Heading</td>
+        <td>Not a heading</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading | Not a heading |
+| Heading | Not a heading |</pre>
+</div>
+
+<div class="case" data-name="heading cells in both thead and tbody">
+  <div class="input">
+    <table>
+      <thead><tr><th>Heading</th></tr></thead>
+      <tbody><tr><th>Cell</th></tr></tbody>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |
+| Cell |</pre>
+</div>
+
+<div class="case" data-name="empty head">
+  <div class="input">
+    <table>
+      <thead><tr><th></th></tr></thead>
+      <tbody><tr><th>Heading</th></tr></tbody>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |</pre>
+</div>
+
 <!-- /TEST CASES -->
 
 <script src="turndown-plugin-gfm-test.browser.js"></script>

@@ -273,6 +273,28 @@
 | --- |</pre>
 </div>
 
+<div class="case" data-name="highlighted code block with html">
+  <div class="input">
+    <div class="highlight highlight-text-html-basic">
+      <pre>&lt;<span class="pl-ent">p</span>&gt;Hello world&lt;/<span class="pl-ent">p</span>&gt;</pre>
+    </div>
+  </div>
+  <pre class="expected">```html
+&lt;p&gt;Hello world&lt;/p&gt;
+```</pre>
+</div>
+
+<div class="case" data-name="highlighted code block with js">
+  <div class="input">
+    <div class="highlight highlight-source-js">
+      <pre>;(<span class="pl-k">function</span> () {})()</pre>
+    </div>
+  </div>
+  <pre class="expected">```js
+;(function () {})()
+```</pre>
+</div>
+
 <!-- /TEST CASES -->
 
 <script src="turndown-plugin-gfm-test.browser.js"></script>

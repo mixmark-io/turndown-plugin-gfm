@@ -1,9 +1,15 @@
+import highlightedCodeBlock from './highlighted-code-block'
 import strikethrough from './strikethrough'
 import tables from './tables'
 import taskListItems from './task-list-items'
 
 function gfm (turndownService) {
-  turndownService.use([strikethrough, tables, taskListItems])
+  turndownService.use([
+    highlightedCodeBlock,
+    strikethrough,
+    tables,
+    taskListItems
+  ])
 }
 
-export { gfm, strikethrough, tables, taskListItems }
+export { gfm, highlightedCodeBlock, strikethrough, tables, taskListItems }

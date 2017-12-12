@@ -18,9 +18,11 @@ rules.tableRow = {
     if (isHeadingRow(node)) {
       for (var i = 0; i < node.childNodes.length; i++) {
         var border = '---'
-        var align = node.childNodes[i].attributes.align
+        var align = (
+          node.childNodes[i].getAttribute('align') || ''
+        ).toLowerCase()
 
-        if (align) border = alignMap[align.value] || border
+        if (align) border = alignMap[align] || border
 
         borderCells += cell(border, node.childNodes[i])
       }

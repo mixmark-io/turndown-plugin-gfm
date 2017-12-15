@@ -1,5 +1,5 @@
 var Attendant = require('turndown-attendant')
-var TurndownService = require('../../to-markdown/lib/turndown.cjs')
+var TurndownService = require('turndown')
 var gfm = require('../lib/turndown-plugin-gfm.cjs').gfm
 
 var attendant = new Attendant({

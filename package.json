@@ -27,6 +27,10 @@
     "gfm"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/domchristie/turndown-plugin-gfm.git"
+  },
   "scripts": {
     "build": "npm run build-cjs && npm run build-es && npm run build-iife && npm run build-test",
     "build-cjs": "rollup -c config/rollup.config.cjs.js && rollup -c config/rollup.config.browser.cjs.js",

@@ -7,7 +7,7 @@
     "browserify": "^14.5.0",
     "rollup": "^0.50.0",
     "standard": "^10.0.3",
-    "turndown": "4.0.0-rc.2",
+    "turndown": "4.0.0",
     "turndown-attendant": "0.0.2"
   },
   "files": [

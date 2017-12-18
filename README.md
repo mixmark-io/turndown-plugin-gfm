@@ -14,7 +14,7 @@ Browser:
 
 ```html
 <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-<script src="https://unpkg.com/turndown/dist/turndown-plugin-gfm.js"></script>
+<script src="https://unpkg.com/turndown-plugin-gfm/dist/turndown-plugin-gfm.js"></script>
 ```
 
 ## Usage

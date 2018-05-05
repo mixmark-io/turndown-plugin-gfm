@@ -5,6 +5,7 @@ var rules = {}
 rules.tableCell = {
   filter: ['th', 'td'],
   replacement: function (content, node) {
+    content = content.replace(/[\r\n]+/g, '')
     return cell(content, node)
   }
 }

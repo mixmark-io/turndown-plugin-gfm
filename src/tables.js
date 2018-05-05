@@ -20,7 +20,7 @@ rules.tableRow = {
       for (var i = 0; i < node.childNodes.length; i++) {
         var border = '---'
         var align = (
-          node.childNodes[i].getAttribute('align') || ''
+          node.childNodes[i].getAttribute('align') || node.childNodes[i].style.textAlign || ''
         ).toLowerCase()
 
         if (align) border = alignMap[align] || border

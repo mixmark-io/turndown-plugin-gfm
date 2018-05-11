@@ -61,7 +61,7 @@
 | Row 2, Column 1 | Row 2, Column 2 |</pre>
 </div>
 
-<div class="case" data-name="cell alignment">
+<div class="case" data-name="cell alignment html4">
   <div class="input">
     <table>
       <thead>
@@ -85,6 +85,39 @@
           <td>Row 2, Column 3</td>
           <td>Row 2, Column 4</td>
         </tr>
+      </tbody>
+    </table>
+  </div>
+  <pre class="expected">| Column 1 | Column 2 | Column 3 | Column 4 |
+| :-- | :-: | --: | --- |
+| Row 1, Column 1 | Row 1, Column 2 | Row 1, Column 3 | Row 1, Column 4 |
+| Row 2, Column 1 | Row 2, Column 2 | Row 2, Column 3 | Row 2, Column 4 |</pre>
+</div>
+
+<div class="case" data-name="cell alignment html5">
+  <div class="input">
+    <table>
+      <thead>
+      <tr>
+        <th style="text-align: left;">Column 1</th>
+        <th style="text-align: center;">Column 2</th>
+        <th style="text-align: right;">Column 3</th>
+        <th style="text-align: foo;">Column 4</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Row 1, Column 1</td>
+        <td>Row 1, Column 2</td>
+        <td>Row 1, Column 3</td>
+        <td>Row 1, Column 4</td>
+      </tr>
+      <tr>
+        <td>Row 2, Column 1</td>
+        <td>Row 2, Column 2</td>
+        <td>Row 2, Column 3</td>
+        <td>Row 2, Column 4</td>
+      </tr>
       </tbody>
     </table>
   </div>

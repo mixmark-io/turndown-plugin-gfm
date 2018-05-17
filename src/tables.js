@@ -46,7 +46,7 @@ rules.table = {
     if (columnCount && !isHeadingRow(firstRow)) {
       emptyHeader = '|' + '     |'.repeat(columnCount) + '\n' + '|' + ' --- |'.repeat(columnCount)
     }
-    
+
     // Ensure there are no blank lines
     content = content.replace('\n\n', '\n')
     return '\n\n' + emptyHeader + content + '\n\n'

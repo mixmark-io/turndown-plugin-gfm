@@ -262,17 +262,20 @@
 | --- |</pre>
 </div>
 
-<div class="case" data-name="non-definitive heading row (not converted)">
+<div class="case" data-name="non-definitive heading row (converted but with empty header)">
   <div class="input">
     <table>
       <tr><td>Row 1 Cell 1</td><td>Row 1 Cell 2</td></tr>
       <tr><td>Row 2 Cell 1</td><td>Row 2 Cell 2</td></tr>
     </table>
   </div>
-  <pre class="expected">&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Row 1 Cell 1&lt;/td&gt;&lt;td&gt;Row 1 Cell 2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Row 2 Cell 1&lt;/td&gt;&lt;td&gt;Row 2 Cell 2&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</pre>
+  <pre class="expected">|     |     |
+| --- | --- |
+| Row 1 Cell 1 | Row 1 Cell 2 |
+| Row 2 Cell 1 | Row 2 Cell 2 |</pre>
 </div>
 
-<div class="case" data-name="non-definitive heading row with th (not converted)">
+<div class="case" data-name="non-definitive heading row with th (converted but with empty header)">
   <div class="input">
     <table>
       <tr>
@@ -285,7 +288,10 @@
       </tr>
     </table>
   </div>
-  <pre class="expected">&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;Heading&lt;/th&gt;&lt;td&gt;Not a heading&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Heading&lt;/td&gt;&lt;td&gt;Not a heading&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</pre>
+  <pre class="expected">|     |     |
+| --- | --- |
+| Heading | Not a heading |
+| Heading | Not a heading |</pre>
 </div>
 
 <div class="case" data-name="highlighted code block with html">

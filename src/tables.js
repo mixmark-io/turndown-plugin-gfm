@@ -84,6 +84,7 @@ function isFirstTbody (element) {
 
 function cell (content, node) {
   var index = indexOf.call(node.parentNode.childNodes, node)
+  content = content.trim();
   var prefix = ' '
   if (index === 0) prefix = '| '
   return prefix + content + ' |'

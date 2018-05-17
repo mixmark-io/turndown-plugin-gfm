@@ -35,13 +35,21 @@ rules.table = {
   // Only convert tables with a heading row.
   // Tables with no heading row are kept using `keep` (see below).
   filter: function (node) {
-    return node.nodeName === 'TABLE' && isHeadingRow(node.rows[0])
+    return node.nodeName === 'TABLE'
   },
 
-  replacement: function (content) {
+  replacement: function (content, node) {
+    // If table has no heading, add an empty one so as to get a valid Markdown table
+    var firstRow = node.rows.length ? node.rows[0] : null
+    var columnCount = firstRow ? firstRow.childNodes.length : 0
+    var emptyHeader = ''
+    if (columnCount && !isHeadingRow(firstRow)) {
+      emptyHeader = '|' + '     |'.repeat(columnCount) + '\n' + '|' + ' --- |'.repeat(columnCount)
+    }
+
     // Ensure there are no blank lines
     content = content.replace('\n\n', '\n')
-    return '\n\n' + content + '\n\n'
+    return '\n\n' + emptyHeader + content + '\n\n'
   }
 }
 
@@ -91,7 +99,7 @@ function cell (content, node) {
 
 export default function tables (turndownService) {
   turndownService.keep(function (node) {
-    return node.nodeName === 'TABLE' && !isHeadingRow(node.rows[0])
+    return node.nodeName === 'TABLE'
   })
   for (var key in rules) turndownService.addRule(key, rules[key])
 }

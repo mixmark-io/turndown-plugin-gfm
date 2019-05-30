@@ -32,16 +32,26 @@ rules.tableRow = {
 }
 
 rules.table = {
-  // Only convert tables with a heading row.
-  // Tables with no heading row are kept using `keep` (see below).
+  // Only convert tables with a heading row, unless they are forced.
+  // Otherwise tables with no heading row are kept using `keep` (see below).
   filter: function (node) {
-    return node.nodeName === 'TABLE' && isHeadingRow(node.rows[0])
+    return node.nodeName === 'TABLE' && (isHeadingRow(node.rows[0]) || options.forceThead)
   },
 
   replacement: function (content) {
+    var emptyHeader = '';
+
+    if (options.forceThead) {
+      var firstRow = node.rows.length ? node.rows[0] : null;
+      var columnCount = firstRow ? firstRow.childNodes.length : 0;
+      if (columnCount && !isHeadingRow(firstRow)) {
+        emptyHeader = '|' + '     |'.repeat(columnCount) + '\n' + '|' + ' --- |'.repeat(columnCount);
+      }
+    }
+
     // Ensure there are no blank lines
     content = content.replace('\n\n', '\n')
-    return '\n\n' + content + '\n\n'
+    return '\n\n' + emptyHeader + content + '\n\n'
   }
 }
 
@@ -91,7 +101,7 @@ function cell (content, node) {
 
 export default function tables (turndownService) {
   turndownService.keep(function (node) {
-    return node.nodeName === 'TABLE' && !isHeadingRow(node.rows[0])
+    return node.nodeName === 'TABLE' && (!isHeadingRow(node.rows[0]) || !options.forceThead)
   })
   for (var key in rules) turndownService.addRule(key, rules[key])
 }

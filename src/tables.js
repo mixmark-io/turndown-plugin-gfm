@@ -34,11 +34,11 @@ rules.tableRow = {
 rules.table = {
   // Only convert tables with a heading row, unless they are forced.
   // Otherwise tables with no heading row are kept using `keep` (see below).
-  filter: function (node) {
+  filter: function (content, node, options) {
     return node.nodeName === 'TABLE' && (isHeadingRow(node.rows[0]) || options.forceThead)
   },
 
-  replacement: function (content) {
+  replacement: function (content, node, options) {
     var emptyHeader = ''
 
     if (options.forceThead) {
@@ -100,7 +100,7 @@ function cell (content, node) {
 }
 
 export default function tables (turndownService) {
-  turndownService.keep(function (node) {
+  turndownService.keep(function (content, node, options) {
     return node.nodeName === 'TABLE' && (!isHeadingRow(node.rows[0]) || !options.forceThead)
   })
   for (var key in rules) turndownService.addRule(key, rules[key])

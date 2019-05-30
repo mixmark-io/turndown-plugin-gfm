@@ -45,6 +45,12 @@ var turndownService = new TurndownService()
 turndownService.use(tables)
 ```
 
+## Options
+
+| Option            | Valid values      | Default |
+| :---------------- | :---------------- | :------ |
+| `forceHeadingRow` | `true` or `false` | `false` |
+
 ## License
 
 turndown-plugin-gfm is copyright © 2017+ Dom Christie and released under the MIT license.

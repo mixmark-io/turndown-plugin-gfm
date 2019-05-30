@@ -32,13 +32,27 @@ rules.tableRow = {
 }
 
 rules.table = {
-  // Only convert tables with a heading row.
+  // Only convert tables with a heading row, unless the heading row is forced.
   // Tables with no heading row are kept using `keep` (see below).
-  filter: function (node) {
-    return node.nodeName === 'TABLE' && isHeadingRow(node.rows[0])
+  filter: function (node, options) {
+    return node.nodeName === 'TABLE' && (isHeadingRow(node.rows[0]) || options.forceHeadingRow)
   },
 
-  replacement: function (content) {
+  replacement: function (content, node, options) {
+    var emptyHeader = ''
+
+    if (options.forceHeadingRow) {
+      var firstRow = node.rows.length ? node.rows[0] : null
+      var columnCount = firstRow ? firstRow.childNodes.length : 0
+
+      // Add an empty heading row, if one is not already present, to ensure a valid Markdown table.
+      if (columnCount && !isHeadingRow(firstRow)) {
+        emptyHeader = '|' + '     |'.repeat(columnCount) + '\n' + '|' + ' --- |'.repeat(columnCount)
+      }
+    }
+
+    content = emptyHeader + content
+
     // Ensure there are no blank lines
     content = content.replace('\n\n', '\n')
     return '\n\n' + content + '\n\n'
@@ -90,8 +104,8 @@ function cell (content, node) {
 }
 
 export default function tables (turndownService) {
-  turndownService.keep(function (node) {
-    return node.nodeName === 'TABLE' && !isHeadingRow(node.rows[0])
+  turndownService.keep(function (node, options) {
+    return node.nodeName === 'TABLE' && (!isHeadingRow(node.rows[0]) || !options.forceHeadingRow)
   })
   for (var key in rules) turndownService.addRule(key, rules[key])
 }

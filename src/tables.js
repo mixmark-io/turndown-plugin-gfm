@@ -39,13 +39,13 @@ rules.table = {
   },
 
   replacement: function (content) {
-    var emptyHeader = '';
+    var emptyHeader = ''
 
     if (options.forceThead) {
-      var firstRow = node.rows.length ? node.rows[0] : null;
-      var columnCount = firstRow ? firstRow.childNodes.length : 0;
+      var firstRow = node.rows.length ? node.rows[0] : null
+      var columnCount = firstRow ? firstRow.childNodes.length : 0
       if (columnCount && !isHeadingRow(firstRow)) {
-        emptyHeader = '|' + '     |'.repeat(columnCount) + '\n' + '|' + ' --- |'.repeat(columnCount);
+        emptyHeader = '|' + '     |'.repeat(columnCount) + '\n' + '|' + ' --- |'.repeat(columnCount)
       }
     }
 

@@ -310,6 +310,16 @@
 ```</pre>
 </div>
 
+<div class="case" data-name="not escaping inside urls">
+  <div class="input">https://text.com/some_page[with]-path</div>
+  <pre class="expected">https://text.com/some_page[with]-path</pre>
+</div>
+
+<div class="case" data-name="not escaping inside urls (with text)">
+  <div class="input">test_text https://text.com/some_page[with]-path test_text </div>
+  <pre class="expected">test\_text https://text.com/some_page[with]-path test\_text</pre>
+</div>
+
 <!-- /TEST CASES -->
 
 <script src="turndown-plugin-gfm-test.browser.js"></script>

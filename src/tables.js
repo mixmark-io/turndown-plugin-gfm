@@ -53,33 +53,29 @@ rules.tableSection = {
 }
 
 // A tr is a heading row if:
-// - the parent is a THEAD
-// - or if its the first child of the TABLE or the first TBODY (possibly
-//   following a blank THEAD)
-// - and every cell is a TH
+// - the parent is a THEAD, assumed syntax with TH is correct
+// - or if its the first child of the TABLE or the first TBODY
+//   and every cell is a TH
 function isHeadingRow (tr) {
-  var parentNode = tr.parentNode
-  return (
-    parentNode.nodeName === 'THEAD' ||
-    (
-      parentNode.firstChild === tr &&
-      (parentNode.nodeName === 'TABLE' || isFirstTbody(parentNode)) &&
-      every.call(tr.childNodes, function (n) { return n.nodeName === 'TH' })
-    )
-  )
-}
-
-function isFirstTbody (element) {
-  var previousSibling = element.previousSibling
-  return (
-    element.nodeName === 'TBODY' && (
-      !previousSibling ||
-      (
-        previousSibling.nodeName === 'THEAD' &&
-        /^\s*$/i.test(previousSibling.textContent)
-      )
-    )
-  )
+  var parentNode = tr.parentNode;
+  if(parentNode.nodeName === 'THEAD')
+    return true
+  if(parentNode.nodeName === 'TFOOT')
+    return false
+  if(parentNode.nodeName === 'TBODY') {
+    var parentParentNode = parentNode.parentNode;
+    if(parentParentNode.nodeName !== 'TABLE')
+      return false;
+    if(parentParentNode.rows[0] !== tr)
+      return false;
+    return every.call(tr.childNodes, function (n) { return n.nodeName === 'TH' })
+  }
+  //no THEAD, TBODY nor TFOOT
+  if(parentNode.nodeName !== 'TABLE')
+    return false;
+  if(parentNode.rows[0] !== tr)
+    return false;
+  return every.call(tr.childNodes, function (n) { return n.nodeName === 'TH' })
 }
 
 function cell (content, node) {

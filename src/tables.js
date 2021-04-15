@@ -86,6 +86,8 @@ function cell (content, node) {
   var index = indexOf.call(node.parentNode.childNodes, node)
   var prefix = ' '
   if (index === 0) prefix = '| '
+  // Ensure single line per cell
+  content = content.replace(/\n/g, ' ');
   return prefix + content + ' |'
 }
 

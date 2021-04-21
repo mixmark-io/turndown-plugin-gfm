@@ -354,6 +354,23 @@
 | Content |</pre>
 </div>
 
+<div class="case" data-name="Table with caption and no row (not converted)">
+  <div class="input">
+    <table>
+      <caption>Caption</caption>
+    </table>
+  </div>
+  <pre class="expected">&lt;table&gt;&lt;caption&gt;Caption&lt;/caption&gt;&lt;/table&gt;</pre>
+</div>
+
+<div class="case" data-name="Table no row">
+  <div class="input">
+    <table>
+    </table>
+  </div>
+  <pre class="expected">&lt;table&gt;&lt;/table&gt;</pre>
+</div>
+
 <div class="case" data-name="highlighted code block with html">
   <div class="input">
     <div class="highlight highlight-text-html-basic">

@@ -58,9 +58,9 @@ rules.tableSection = {
 function isHeadingRow (tr) {
   var parentNode = tr.parentNode
   var tableNode = parentNode
-  if (tableNode.nodeName === 'THEAD' ||
-     tableNode.nodeName === 'TFOOT' ||
-     tableNode.nodeName === 'TBODY') {
+  if (parentNode.nodeName === 'THEAD' ||
+     parentNode.nodeName === 'TFOOT' ||
+     parentNode.nodeName === 'TBODY') {
     tableNode = parentNode.parentNode
   }
   if (tableNode.nodeName !== 'TABLE' || tableNode.rows[0] !== tr) {

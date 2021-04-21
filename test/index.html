@@ -53,12 +53,19 @@
           <td>Row 2, Column 2</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td>Row 3, Column 1</td>
+          <td>Row 3, Column 2</td>
+        </tr>
+      </tfoot>
     </table>
   </div>
   <pre class="expected">| Column 1 | Column 2 |
 | --- | --- |
 | Row 1, Column 1 | Row 1, Column 2 |
-| Row 2, Column 1 | Row 2, Column 2 |</pre>
+| Row 2, Column 1 | Row 2, Column 2 |
+| Row 3, Column 1 | Row 3, Column 2 |</pre>
 </div>
 
 <div class="case" data-name="cell alignment">
@@ -174,6 +181,7 @@
 <pre class="expected">| Heading 1 | Heading 2 |
 | --- | --- |
 | Row 1 | Row 1 |
+|  |  |
 | Row 3 | Row 3 |</pre>
 </div>
 
@@ -255,10 +263,9 @@
   <div class="input">
     <table>
       <thead><tr><th></th></tr></thead>
-      <tbody><tr><th>Heading</th></tr></tbody>
     </table>
   </div>
-  <pre class="expected">| Heading |
+  <pre class="expected">|  |
 | --- |</pre>
 </div>
 
@@ -286,6 +293,65 @@
     </table>
   </div>
   <pre class="expected">&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;Heading&lt;/th&gt;&lt;td&gt;Not a heading&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Heading&lt;/td&gt;&lt;td&gt;Not a heading&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</pre>
+</div>
+
+<div class="case" data-name="Pipe to be escaped">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading 1 | Heading 2</th>
+      </tr>
+      <tr>
+        <td>Content 1 | Content 2</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading 1 \| Heading 2 |
+| --- |
+| Content 1 \| Content 2 |</pre>
+</div>
+
+<div class="case" data-name="Multi lines header and body">
+  <div class="input">
+    <table>
+      <tr>
+        <th>
+          Heading 1
+          Heading 2
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <p>Paragraph 1</p>
+          <p>Paragraph 2</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading 1 Heading 2 |
+| --- |
+|   Paragraph 1  Paragraph 2   |</pre>
+</div>
+
+<div class="case" data-name="Table with caption and colgroup">
+  <div class="input">
+    <table>
+      <caption>Caption</caption>
+      <colgroup>
+        <col style="background-color:yellow">
+      </colgroup>
+      <tr>
+        <th>Heading</th>
+      </tr>
+      <tr>
+        <td>Content</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">Caption  
+| Heading |
+| --- |
+| Content |</pre>
 </div>
 
 <div class="case" data-name="highlighted code block with html">

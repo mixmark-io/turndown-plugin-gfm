@@ -1,11 +1,10 @@
 var indexOf = Array.prototype.indexOf
-var every = Array.prototype.every
 var rules = {}
 
 rules.tableCell = {
   filter: ['th', 'td'],
   replacement: function (content, node) {
-    return cell(content, node)
+    return cell(content, node) + spannedCells(node, '')
   }
 }
 
@@ -24,7 +23,7 @@ rules.tableRow = {
 
         if (align) border = alignMap[align] || border
 
-        borderCells += cell(border, node.childNodes[i])
+        borderCells += cell(border, node.childNodes[i]) + spannedCells(node.childNodes[i], border)
       }
     }
     return '\n' + content + (borderCells ? '\n' + borderCells : '')
@@ -32,12 +31,7 @@ rules.tableRow = {
 }
 
 rules.table = {
-  // Only convert tables with a heading row.
-  // Tables with no heading row are kept using `keep` (see below).
-  filter: function (node) {
-    return node.nodeName === 'TABLE' && node.rows[0] && isHeadingRow(node.rows[0])
-  },
-
+  filter: 'table',
   replacement: function (content) {
     // Ensure there are no blank lines
     content = content.replace('\n\n', '\n')
@@ -52,9 +46,15 @@ rules.tableSection = {
   }
 }
 
-// Check that the parent or parent parent (in case of THEAD, TBODY or TFOOT) is a TABLE
-// and it is matching the first row
-// and every cell is a TH. Unless it is part of THEAD
+rules.captionSection = {
+  // only return content if caption if the first node immediately after TABLE
+  filter: 'caption',
+  replacement: function (content, node) {
+    if (node.parentNode.nodeName === 'TABLE' && node.parentNode.childNodes[0] === node) return content
+    return ''
+  }
+}
+
 function isHeadingRow (tr) {
   var parentNode = tr.parentNode
   var tableNode = parentNode
@@ -63,13 +63,7 @@ function isHeadingRow (tr) {
      parentNode.nodeName === 'TBODY') {
     tableNode = parentNode.parentNode
   }
-  if (tableNode.nodeName !== 'TABLE' || tableNode.rows[0] !== tr) {
-    return false
-  }
-  if (parentNode.nodeName === 'THEAD') {
-    return true
-  }
-  return every.call(tr.childNodes, function (n) { return n.nodeName === 'TH' })
+  return (tableNode.nodeName === 'TABLE' && tableNode.rows[0] === tr)
 }
 
 function cell (content, node) {
@@ -83,9 +77,12 @@ function cell (content, node) {
   return prefix + content + ' |'
 }
 
+function spannedCells (node, spannedCellContent) {
+  var colspan = node.getAttribute('colspan') || 1
+  if (colspan <= 1) return ''
+  return (' ' + spannedCellContent + ' |').repeat(colspan - 1)
+}
+
 export default function tables (turndownService) {
-  turndownService.keep(function (node) {
-    return node.nodeName === 'TABLE' && (!node.rows[0] || !isHeadingRow(node.rows[0]))
-  })
   for (var key in rules) turndownService.addRule(key, rules[key])
 }

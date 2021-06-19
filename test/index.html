@@ -407,7 +407,7 @@
   <pre class="expected">Caption</pre>
 </div>
 
-<div class="case" data-name="Table no row">
+<div class="case" data-name="Table with no row">
   <div class="input">
     <table>
     </table>
@@ -415,7 +415,7 @@
   <pre class="expected"></pre>
 </div>
 
-<div class="case" data-name="Colspan">
+<div class="case" data-name="Table with rows using colspan">
   <div class="input">
     <table>
       <tr>
@@ -425,6 +425,10 @@
         <th colspan="-1">Heading 4</th>
         <th colspan="a">Heading 5</th>
         <th colspan="2">Heading 6-7</th>
+        <th colspan="">Heading 8</th>
+        <th colspan="1.7">Heading 9</th>
+        <th colspan="1.2">Heading 10</th>
+        <th>Last Heading</th>
       </tr>
       <tr>
         <td>Content 1</td>
@@ -433,12 +437,30 @@
         <td colspan="-1">Content 4</td>
         <td colspan="a">Content 5</td>
         <td colspan="2">Content 6-7</td>
+        <td colspan="">Content 8</td>
+        <td colspan="1.7">Content 9</td>
+        <td colspan="1.2">Content 10</td>
+        <td>Last Content</td>
+      </tr>
+      <tr>
+        <td>Content 1</td>
+        <td>Content 2</td>
+        <td>Content 3</td>
+        <td>Content 4</td>
+        <td>Content 5</td>
+        <td>Content 6</td>
+        <td>Content 7</td>
+        <td>Content 8</td>
+        <td>Content 9</td>
+        <td>Content 10</td>
+        <td>Last Content</td>
       </tr>
     </table>
   </div>
-  <pre class="expected">| Heading 1 | Heading 2 | Heading 3 | Heading 4 | Heading 5 | Heading 6-7 |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| Content 1 | Content 2 | Content 3 | Content 4 | Content 5 | Content 6-7 |  |</pre>
+  <pre class="expected">| Heading 1 | Heading 2 | Heading 3 | Heading 4 | Heading 5 | Heading 6-7 |  | Heading 8 | Heading 9 | Heading 10 | Last Heading |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Content 1 | Content 2 | Content 3 | Content 4 | Content 5 | Content 6-7 |  | Content 8 | Content 9 | Content 10 | Last Content |
+| Content 1 | Content 2 | Content 3 | Content 4 | Content 5 | Content 6 | Content 7 | Content 8 | Content 9 | Content 10 | Last Content |</pre>
 </div>
 
 <div class="case" data-name="Nested table">
@@ -464,11 +486,10 @@
       </tr>
     </table>
    </div>
-  <pre class="expected">HeadingContent
-
-| Nested Heading |
+  <pre class="expected">| Heading |
 | --- |
-| Nested Content |</pre>
+| Content |
+|   &lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;Nested Heading&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Nested Content&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;   |</pre>
 </div>
 
 <div class="case" data-name="highlighted code block with html">

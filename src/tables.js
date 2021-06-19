@@ -31,7 +31,12 @@ rules.tableRow = {
 }
 
 rules.table = {
-  filter: 'table',
+  // Only convert tables that are not nested in another table, they are kept using `keep` (see below).
+  // TODO: nested tables should be converted to plain text in a strict (non HTML) gfm
+  filter: function (node) {
+    return node.nodeName === 'TABLE' && !isNestedTable(node)
+  },
+
   replacement: function (content) {
     // Ensure there are no blank lines
     content = content.replace('\n\n', '\n')
@@ -70,8 +75,9 @@ function cell (content, node) {
   var index = indexOf.call(node.parentNode.childNodes, node)
   var prefix = ' '
   if (index === 0) prefix = '| '
-  // Ensure single line per cell
-  content = content.replace(/\n/g, ' ')
+  // Ensure single line per cell (both windows and unix EoL)
+  // TODO: allow gfm non-strict mode to replace new lines by `<br/>`
+  content = content.replace(/\r\n/g, '\n').replace(/\n/g, ' ')
   // | must be escaped as \|
   content = content.replace(/\|/g, '\\|')
   return prefix + content + ' |'
@@ -83,6 +89,18 @@ function spannedCells (node, spannedCellContent) {
   return (' ' + spannedCellContent + ' |').repeat(colspan - 1)
 }
 
+function isNestedTable (tableNode) {
+  var currentNode = tableNode.parentNode
+  while (currentNode) {
+    if (currentNode.nodeName === 'TABLE') return true
+    currentNode = currentNode.parentNode
+  }
+  return false
+}
+
 export default function tables (turndownService) {
+  turndownService.keep(function (node) {
+    return node.nodeName === 'TABLE' && isNestedTable(node)
+  })
   for (var key in rules) turndownService.addRule(key, rules[key])
 }

@@ -1,7 +1,7 @@
 {
-  "name": "turndown-plugin-gfm",
+  "name": "@guyplusplus/turndown-plugin-gfm",
   "description": "Turndown plugin to add GitHub Flavored Markdown extensions.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Dom Christie",
   "main": "lib/turndown-plugin-gfm.cjs.js",
   "module": "lib/turndown-plugin-gfm.es.js",
@@ -29,7 +29,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/domchristie/turndown-plugin-gfm.git"
+    "url": "https://github.com/guyplusplus/turndown-plugin-gfm.git"
   },
   "scripts": {
     "build": "npm run build-cjs && npm run build-es && npm run build-iife && npm run build-test",

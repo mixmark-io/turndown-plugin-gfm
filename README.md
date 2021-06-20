@@ -2,6 +2,10 @@
 
 A [Turndown](https://github.com/domchristie/turndown) plugin which adds GitHub Flavored Markdown extensions.
 
+## Test Page
+
+The test page can be found [here](https://guyplusplus.github.io/turndown-plugin-gfm/).
+
 ## Fork information
 
 This is a fork of the original [turndown-plugin-gfm](https://github.com/domchristie/turndown-plugin-gfm) for general purpose. It is pending on this [pull request](https://github.com/domchristie/turndown-plugin-gfm/pull/31).

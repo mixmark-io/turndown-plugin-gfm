@@ -2,6 +2,25 @@
 
 A [Turndown](https://github.com/domchristie/turndown) plugin which adds GitHub Flavored Markdown extensions.
 
+## Fork information
+
+This is a fork of the original [turndown-plugin-gfm](https://github.com/domchristie/turndown-plugin-gfm) for general purpose. It is pending on this [pull request](https://github.com/domchristie/turndown-plugin-gfm/pull/31).
+
+The changes are:
+- migrated to node v5
+- upgraded inclusion of turndown npm package to 7.0.0
+- support tables with `caption` and `colgroup` elements
+- support conversion of a multi-lines cell to a single line cell
+- pipe character `|` are properly escaped in a table cell
+- fix support for tables with no row
+- support for `colspan`
+- nested table inside a table render as is, gfm is not applied
+- added more test cases accordingly
+
+TODO:
+- [ ] rowspan support
+- [ ] support for relaxed and strict gfm (not html) rendering. So new lines, nested tables would render differently
+
 ## Installation
 
 npm:

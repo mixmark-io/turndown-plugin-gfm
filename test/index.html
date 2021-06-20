@@ -415,6 +415,27 @@
   <pre class="expected"></pre>
 </div>
 
+<div class="case" data-name="Table with no td on first line">
+  <div class="input">
+    <table>
+      <tr></tr>
+      <tr><td>Content</td></tr>
+    </table>
+  </div>
+  <pre class="expected">| Content |</pre>
+</div>
+
+<div class="case" data-name="Table with no td on second line">
+  <div class="input">
+    <table>
+      <tr><th>Heading</th></tr>
+      <tr></tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |</pre>
+</div>
+
 <div class="case" data-name="Table with rows using colspan">
   <div class="input">
     <table>

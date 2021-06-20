@@ -45,11 +45,10 @@ Browser:
 ```js
 // For Node.js
 var TurndownService = require('turndown')
-var turndownPluginGfm = require('turndown-plugin-gfm')
+var TurndownPluginGfm = require('turndown-plugin-gfm')
 
-var gfm = turndownPluginGfm.gfm
 var turndownService = new TurndownService()
-turndownService.use(gfm)
+TurndownPluginGfm.gfm(turndownService)
 var markdown = turndownService.turndown('<strike>Hello world!</strike>')
 ```
 

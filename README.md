@@ -30,14 +30,14 @@ TODO:
 npm:
 
 ```
-npm install turndown-plugin-gfm
+npm install @guyplusplus/turndown-plugin-gfm
 ```
 
 Browser:
 
 ```html
 <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-<script src="https://unpkg.com/turndown-plugin-gfm/dist/turndown-plugin-gfm.js"></script>
+<script src="https://unpkg.com/@guyplusplus/turndown-plugin-gfm/dist/turndown-plugin-gfm.js"></script>
 ```
 
 ## Usage
@@ -45,7 +45,7 @@ Browser:
 ```js
 // For Node.js
 var TurndownService = require('turndown')
-var TurndownPluginGfm = require('turndown-plugin-gfm')
+var TurndownPluginGfm = require('@guyplusplus/turndown-plugin-gfm')
 
 var turndownService = new TurndownService()
 TurndownPluginGfm.gfm(turndownService)

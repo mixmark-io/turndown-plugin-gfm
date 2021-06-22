@@ -129,24 +129,18 @@
 <pre><code class="language-js">var turndownService = new TurndownService()
 TurndownPluginGfmService.gfm(turndownService)
 console.log(
-  turndownService.turndown('&amp;lt;h1&amp;gt;Hello world&amp;lt;/h1&amp;gt;')
+  turndownService.turndown('&amp;lt;strike&amp;gt;Hello world&amp;lt;/strike&amp;gt;')
 )</code></pre>
 
 <hr />
 
 <p>It aims to be <a href="http://commonmark.org/">CommonMark</a>
- compliant, and includes options to style the output. These options include:</p>
+ compliant, and includes additional options to style the output. These options include:</p>
 
 <ul>
-  <li>headingStyle (setext or atx)</li>
-  <li>horizontalRule (*, -, or _)</li>
-  <li>bullet (*, -, or +)</li>
-  <li>codeBlockStyle (indented or fenced)</li>
-  <li>fence (` or ~)</li>
-  <li>emDelimiter (_ or *)</li>
-  <li>strongDelimiter (** or __)</li>
-  <li>linkStyle (inlined or referenced)</li>
-  <li>linkReferenceStyle (full, collapsed, or shortcut)</li>
+  <li>strikethrough (~)</li>
+  <li>tables (|, |---|)</li>
+  <li>taskListItems ([ ] or [x])</li>
 </ul></textarea>
   </div>
   <div class="col">

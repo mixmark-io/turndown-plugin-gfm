@@ -53,12 +53,19 @@
           <td>Row 2, Column 2</td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td>Row 3, Column 1</td>
+          <td>Row 3, Column 2</td>
+        </tr>
+      </tfoot>
     </table>
   </div>
   <pre class="expected">| Column 1 | Column 2 |
 | --- | --- |
 | Row 1, Column 1 | Row 1, Column 2 |
-| Row 2, Column 1 | Row 2, Column 2 |</pre>
+| Row 2, Column 1 | Row 2, Column 2 |
+| Row 3, Column 1 | Row 3, Column 2 |</pre>
 </div>
 
 <div class="case" data-name="cell alignment">
@@ -174,6 +181,7 @@
 <pre class="expected">| Heading 1 | Heading 2 |
 | --- | --- |
 | Row 1 | Row 1 |
+|  |  |
 | Row 3 | Row 3 |</pre>
 </div>
 
@@ -251,28 +259,38 @@
 | Cell |</pre>
 </div>
 
-<div class="case" data-name="empty head">
+<div class="case" data-name="empty head content (minimum table)">
   <div class="input">
     <table>
       <thead><tr><th></th></tr></thead>
-      <tbody><tr><th>Heading</th></tr></tbody>
     </table>
   </div>
-  <pre class="expected">| Heading |
+  <pre class="expected">|  |
 | --- |</pre>
 </div>
 
-<div class="case" data-name="non-definitive heading row (not converted)">
+<div class="case" data-name="no cell in first row">
+  <div class="input">
+    <table>
+      <thead><tr></tr></thead>
+    </table>
+  </div>
+  <pre class="expected"></pre>
+</div>
+
+<div class="case" data-name="non-definitive heading row">
   <div class="input">
     <table>
       <tr><td>Row 1 Cell 1</td><td>Row 1 Cell 2</td></tr>
       <tr><td>Row 2 Cell 1</td><td>Row 2 Cell 2</td></tr>
     </table>
   </div>
-  <pre class="expected">&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Row 1 Cell 1&lt;/td&gt;&lt;td&gt;Row 1 Cell 2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Row 2 Cell 1&lt;/td&gt;&lt;td&gt;Row 2 Cell 2&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</pre>
+  <pre class="expected">| Row 1 Cell 1 | Row 1 Cell 2 |
+| --- | --- |
+| Row 2 Cell 1 | Row 2 Cell 2 |</pre>
 </div>
 
-<div class="case" data-name="non-definitive heading row with th (not converted)">
+<div class="case" data-name="non-definitive heading row with th">
   <div class="input">
     <table>
       <tr>
@@ -285,7 +303,214 @@
       </tr>
     </table>
   </div>
-  <pre class="expected">&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;Heading&lt;/th&gt;&lt;td&gt;Not a heading&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Heading&lt;/td&gt;&lt;td&gt;Not a heading&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</pre>
+  <pre class="expected">| Heading | Not a heading |
+| --- | --- |
+| Heading | Not a heading |</pre>
+</div>
+
+<div class="case" data-name="Pipe to be escaped">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading 1 | Heading 2</th>
+      </tr>
+      <tr>
+        <td>Content 1 | Content 2</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading 1 \| Heading 2 |
+| --- |
+| Content 1 \| Content 2 |</pre>
+</div>
+
+<div class="case" data-name="Multi lines header and body">
+  <div class="input">
+    <table>
+      <tr>
+        <th>
+          Heading 1
+          Heading 2
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <p>Paragraph 1</p>
+          <p>Paragraph 2</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading 1 Heading 2 |
+| --- |
+|   Paragraph 1  Paragraph 2   |</pre>
+</div>
+
+<div class="case" data-name="Table with caption (at start) and colgroup">
+  <div class="input">
+    <table>
+      <caption>Caption</caption>
+      <colgroup>
+        <col style="background-color:yellow">
+      </colgroup>
+      <tr>
+        <th>Heading</th>
+      </tr>
+      <tr>
+        <td>Content</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">Caption 
+| Heading |
+| --- |
+| Content |</pre>
+</div>
+
+<div class="case" data-name="Table with caption (at end)">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading</th>
+      </tr>
+      <tr>
+        <td>Content</td>
+      </tr>
+      <caption>Caption</caption>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |
+| Content |</pre>
+</div>
+
+<div class="case" data-name="Table with caption (at start) in 1 line">
+  <div class="input">
+    <table>
+      <caption>Caption</caption><tr><th>Heading</th></tr><tr>
+        <td>Content</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">Caption
+| Heading |
+| --- |
+| Content |</pre>
+</div>
+
+<div class="case" data-name="Table with caption and no row">
+  <div class="input">
+    <table>
+      <caption>Caption</caption>
+    </table>
+  </div>
+  <pre class="expected">Caption</pre>
+</div>
+
+<div class="case" data-name="Table with no row">
+  <div class="input">
+    <table>
+    </table>
+  </div>
+  <pre class="expected"></pre>
+</div>
+
+<div class="case" data-name="Table with no td on first line">
+  <div class="input">
+    <table>
+      <tr></tr>
+      <tr><td>Content</td></tr>
+    </table>
+  </div>
+  <pre class="expected">| Content |</pre>
+</div>
+
+<div class="case" data-name="Table with no td on second line">
+  <div class="input">
+    <table>
+      <tr><th>Heading</th></tr>
+      <tr></tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading |
+| --- |</pre>
+</div>
+
+<div class="case" data-name="Table with rows using colspan">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading 1</th>
+        <th colspan="1">Heading 2</th>
+        <th colspan="0">Heading 3</th>
+        <th colspan="-1">Heading 4</th>
+        <th colspan="a">Heading 5</th>
+        <th colspan="2">Heading 6-7</th>
+        <th colspan="">Heading 8</th>
+        <th colspan="1.7">Heading 9</th>
+        <th colspan="1.2">Heading 10</th>
+        <th>Last Heading</th>
+      </tr>
+      <tr>
+        <td>Content 1</td>
+        <td colspan="1">Content 2</td>
+        <td colspan="0">Content 3</td>
+        <td colspan="-1">Content 4</td>
+        <td colspan="a">Content 5</td>
+        <td colspan="2">Content 6-7</td>
+        <td colspan="">Content 8</td>
+        <td colspan="1.7">Content 9</td>
+        <td colspan="1.2">Content 10</td>
+        <td>Last Content</td>
+      </tr>
+      <tr>
+        <td>Content 1</td>
+        <td>Content 2</td>
+        <td>Content 3</td>
+        <td>Content 4</td>
+        <td>Content 5</td>
+        <td>Content 6</td>
+        <td>Content 7</td>
+        <td>Content 8</td>
+        <td>Content 9</td>
+        <td>Content 10</td>
+        <td>Last Content</td>
+      </tr>
+    </table>
+  </div>
+  <pre class="expected">| Heading 1 | Heading 2 | Heading 3 | Heading 4 | Heading 5 | Heading 6-7 |  | Heading 8 | Heading 9 | Heading 10 | Last Heading |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Content 1 | Content 2 | Content 3 | Content 4 | Content 5 | Content 6-7 |  | Content 8 | Content 9 | Content 10 | Last Content |
+| Content 1 | Content 2 | Content 3 | Content 4 | Content 5 | Content 6 | Content 7 | Content 8 | Content 9 | Content 10 | Last Content |</pre>
+</div>
+
+<div class="case" data-name="Nested table">
+  <div class="input">
+    <table>
+      <tr>
+        <th>Heading</th>
+      </tr>
+      <tr>
+        <td>Content</td>
+      </tr>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <th>Nested Heading</th>
+            </tr>
+            <tr>
+              <td>Nested Content</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+   </div>
+  <pre class="expected">| Heading |
+| --- |
+| Content |
+|   &lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;Nested Heading&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Nested Content&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;   |</pre>
 </div>
 
 <div class="case" data-name="highlighted code block with html">

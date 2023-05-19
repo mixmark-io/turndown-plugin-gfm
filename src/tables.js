@@ -59,6 +59,7 @@ rules.tableSection = {
 // - and every cell is a TH
 function isHeadingRow (tr) {
   var parentNode = tr.parentNode
+  if (!parentNode) return false
   return (
     parentNode.nodeName === 'THEAD' ||
     (

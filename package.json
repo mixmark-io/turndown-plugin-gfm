@@ -6,16 +6,23 @@
   "main": "lib/turndown-plugin-gfm.cjs.js",
   "module": "lib/turndown-plugin-gfm.es.js",
   "jsnext:main": "lib/turndown-plugin-gfm.es.js",
+  "types": "./index.d.ts",
   "devDependencies": {
+    "@types/turndown": "^5.0.6",
     "browserify": "^14.5.0",
     "rollup": "^0.50.0",
     "standard": "^10.0.3",
     "turndown": "4.0.1",
-    "turndown-attendant": "0.0.2"
+    "turndown-attendant": "0.0.2",
+    "typescript": "^6.0.3"
+  },
+  "peerDependencies": {
+    "turndown": ">=4"
   },
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "keywords": [
     "turndown",
@@ -37,7 +44,8 @@
     "build-es": "rollup -c config/rollup.config.es.js && rollup -c config/rollup.config.browser.es.js",
     "build-iife": "rollup -c config/rollup.config.iife.js",
     "build-test": "browserify test/turndown-plugin-gfm-test.js --outfile test/turndown-plugin-gfm-test.browser.js",
+    "test-types": "tsc --noEmit",
     "prepublish": "npm run build",
-    "test": "npm run build && standard ./src/**/*.js && node test/turndown-plugin-gfm-test.js"
+    "test": "npm run build && standard ./src/**/*.js && node test/turndown-plugin-gfm-test.js && npm run test-types"
   }
 }
